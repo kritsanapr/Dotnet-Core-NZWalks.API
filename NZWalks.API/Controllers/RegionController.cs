@@ -33,16 +33,6 @@ public class RegionController : ControllerBase
        var regionsDomain = await _regionRepository.GetAllAsync();
 
         // Map domain models to DTOs
-        //var regionsDto = new List<RegionDto>();
-        //foreach (var regionDomain in regionsDomain)
-        //
-        //    regionsDto.Add(new RegionDto() {
-        //         Id = regionDomain.Id,
-        //         Code = regionDomain.Code,
-        //         Name = regionDomain.Name,
-        //         RegionImageUrl = regionDomain.RegionImageUrl,
-        //     });
-        // }
         var regionsDto = _mapper.Map<List<RegionDto>>(regionsDomain);
         
         // Return DTOs
@@ -53,21 +43,13 @@ public class RegionController : ControllerBase
     [Route("{id:Guid}")]
     public async Task<IActionResult> GetByIdAsync([FromRoute] Guid id)
     {
-        // var region = _context.Regions.Find(id);
         var regionDomain = await _regionRepository.GetByIdAsync(id);
         if(regionDomain == null)
         {
             return NotFound();
         }
 
-        // Map/Convert Region Domain Model to Region DTO
-        //var regionsDto = new RegionDto()
-        //{
-        //    Id = regionDomain.Id,
-        //   Code = regionDomain.Code,
-        //    Name = regionDomain.Name,
-        //    RegionImageUrl = regionDomain.RegionImageUrl,
-        //};
+
         
         var regionsDto = _mapper.Map<RegionDto>(regionDomain);
 
@@ -84,14 +66,6 @@ public class RegionController : ControllerBase
         };
 
        regionDomainModel = await _regionRepository.CreateAsync(regionDomainModel);
-
-        //var regionDto = new RegionDto
-        //{
-        //    Id = regionDomainModel.Id,
-        //    Code = regionDomainModel.Code,
-        //    Name = regionDomainModel.Name,
-        //    RegionImageUrl = regionDomainModel.RegionImageUrl
-        //};
 
         var regionDto = _mapper.Map<RegionDto>(regionDomainModel);
 

@@ -20,9 +20,9 @@ builder.Services.AddDbContext<NZWalkDbContext>(options =>
     options.UseSqlServer(configurationString)
     );
 
-
 // Inject Repository
 builder.Services.AddScoped<IRegionRepository, SQLRegionRepository>();
+builder.Services.AddScoped<IWalkRepository, SQLWalkRepository>();
 
 // Inject AutoMapper 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
